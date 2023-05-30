@@ -1,8 +1,8 @@
 import './App.css';
-import { ToDoList } from './pages/ToDoList';
+import { ToDoListPage } from './pages/ToDoListPage';
 
 export const App = () => {
   return (
-    <ToDoList />
+    <ToDoListPage />
   );
 };
