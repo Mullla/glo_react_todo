@@ -1,13 +1,17 @@
 import { ChangeEvent, useState } from 'react';
 import classes from './Form.module.scss';
 
-export const Form = (props: { createToDo: Function }) => {
+interface ComponentProps {
+  createToDo: Function;
+}
+
+export const Form = ({ createToDo }: ComponentProps) => {
   const [text, setText] = useState('');
 
   const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (text) props.createToDo(text);
+    if (text) createToDo(text);
     setText('');
   };
 

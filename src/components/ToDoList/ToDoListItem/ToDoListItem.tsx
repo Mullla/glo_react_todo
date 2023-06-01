@@ -1,11 +1,13 @@
 import { ToDo } from '../../../models/ToDo';
 import classes from './ToDoListItem.module.scss';
 
-export const ToDoListItem = (props: {
+interface ComponentProps {
   todo: ToDo;
   updateToDo: Function;
   deleteToDo: Function;
-}) => {
+}
+
+export const ToDoListItem = (props: ComponentProps) => {
   return (
     <li className={classes.wrapper}>
       <span>{props.todo.text}</span>

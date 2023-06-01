@@ -2,11 +2,13 @@ import { ToDoListItem } from './ToDoListItem/ToDoListItem';
 import classes from './ToDoList.module.scss';
 import { ToDo } from '../../models/ToDo';
 
-export const ToDoList = (props: {
+interface ComponentProps {
   todos: ToDo[];
   updateToDo: Function;
   deleteToDo: Function;
-}) => {
+}
+
+export const ToDoList = (props: ComponentProps) => {
   const getListWithStatus = (isDone: boolean) => {
     return props.todos
       .filter(todo => todo.isDone === isDone)

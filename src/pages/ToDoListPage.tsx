@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { Form } from '../components/Form/Form';
-import { Header } from '../components/Header/Header';
 import { ToDoList } from '../components/ToDoList/ToDoList';
 import { ToDo } from '../models/ToDo';
 import { todos as TODO_LIST } from '../helpers/constants';
@@ -10,11 +9,12 @@ const CLOSE_DELAY = 2000;
 
 export const ToDoListPage = () => {
   const [todos, setTodos] = useState<ToDo[]>(TODO_LIST);
+  const id = useId();
 
   const createToDo = (text: string) => {
     const newTodo: ToDo = {
-      id: todos.length,
       isDone: false,
+      id,
       text,
     };
 
@@ -51,7 +51,6 @@ export const ToDoListPage = () => {
 
   return (
     <>
-      <Header />
       <Form createToDo={createToDo} />
       <ToDoList todos={todos} updateToDo={updateToDo} deleteToDo={deleteToDo} />
     </>

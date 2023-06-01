@@ -1,4 +1,4 @@
-export type ToDoId = number;
+export type ToDoId = string;
 
 export interface ToDo {
   id: ToDoId;
