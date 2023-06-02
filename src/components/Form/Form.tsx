@@ -1,4 +1,9 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { RootState } from '../../store';
+import { inputChangeAction } from '../../feature/todoList';
+
 import classes from './Form.module.scss';
 
 interface ComponentProps {
@@ -6,13 +11,14 @@ interface ComponentProps {
 }
 
 export const Form = ({ createToDo }: ComponentProps) => {
-  const [text, setText] = useState('');
+  const value = useSelector((state: RootState) => state.todoList.inputToDo);
+  const dispatch = useDispatch();
 
   const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (text) createToDo(text);
-    setText('');
+    if (value) createToDo(value);
+    dispatch(inputChangeAction(''));
   };
 
   return (
@@ -20,9 +26,9 @@ export const Form = ({ createToDo }: ComponentProps) => {
       <form action="#" onSubmit={onSubmit}>
         <label>
           <input
-            value={text}
+            value={value}
             type="text"
-            onChange={e => setText(e.target.value)}
+            onChange={e => dispatch(inputChangeAction(e.target.value))}
           />
           <button />
         </label>

@@ -6,19 +6,21 @@ import { v4 as uuidv4 } from 'uuid';
 
 export interface TodoState {
   todos: ToDo[];
+  inputToDo: string;
 }
 
 const initialState: TodoState = {
   todos: TODO_LIST,
+  inputToDo: '',
 };
 
 export const todoSlice = createSlice({
   name: 'todoList',
   initialState,
   reducers: {
-    createAction: (state, action: PayloadAction<string>) => {
+    createAction: (state) => {
       const newTodo: ToDo = {
-        text: action.payload,
+        text: state.inputToDo,
         isDone: false,
         id: uuidv4(),
       };
@@ -43,9 +45,17 @@ export const todoSlice = createSlice({
 
       state.todos = updatedTodos;
     },
+    inputChangeAction: (state, action: PayloadAction<string>) => {
+      state.inputToDo = action.payload;
+    },
   },
 });
 
-export const { createAction, updateAction, deleteAction } = todoSlice.actions;
+export const {
+  createAction,
+  updateAction,
+  deleteAction,
+  inputChangeAction,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;

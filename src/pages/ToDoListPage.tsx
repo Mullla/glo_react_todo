@@ -15,7 +15,7 @@ export const ToDoListPage = () => {
   const dispatch = useDispatch();
 
   const createToDo = (text: string) => {
-    dispatch(createAction(text));
+    dispatch(createAction());
     toast(`Задача «${text}» создана`, { autoClose: CLOSE_DELAY });
   };
 
