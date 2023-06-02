@@ -1,37 +1,26 @@
-import { useId, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+
 import { Form } from '../components/Form/Form';
 import { ToDoList } from '../components/ToDoList/ToDoList';
+
 import { ToDo } from '../models/ToDo';
-import { todos as TODO_LIST } from '../helpers/constants';
-import { toast } from 'react-toastify';
+import { RootState } from '../store';
+import { createAction, deleteAction, updateAction } from '../feature/todoList';
 
 const CLOSE_DELAY = 2000;
 
 export const ToDoListPage = () => {
-  const [todos, setTodos] = useState<ToDo[]>(TODO_LIST);
-  const id = useId();
+  const todoList = useSelector((state: RootState) => state.todoList.todos);
+  const dispatch = useDispatch();
 
   const createToDo = (text: string) => {
-    const newTodo: ToDo = {
-      isDone: false,
-      id,
-      text,
-    };
-
-    setTodos([...todos, newTodo]);
+    dispatch(createAction(text));
     toast(`Задача «${text}» создана`, { autoClose: CLOSE_DELAY });
   };
 
   const updateToDo = (toDoItem: ToDo) => {
-    const updatedTodos = todos.map(todo => {
-      if (todo.id === toDoItem.id) {
-        todo.isDone = !todo.isDone;
-      }
-
-      return todo;
-    });
-
-    setTodos(updatedTodos);
+    dispatch(updateAction(toDoItem));
     toast.info(
       `Задача «${toDoItem.text}» помечена как ${
         toDoItem.isDone ? '' : 'не'
@@ -41,9 +30,7 @@ export const ToDoListPage = () => {
   };
 
   const deleteToDo = (toDoItem: ToDo) => {
-    const updatedTodos = todos.filter(todo => todo.id !== toDoItem.id);
-
-    setTodos(updatedTodos);
+    dispatch(deleteAction(toDoItem))
     toast.error(`Задача «${toDoItem.text}» была удалена из списка задач`, {
       autoClose: CLOSE_DELAY,
     });
@@ -52,7 +39,11 @@ export const ToDoListPage = () => {
   return (
     <>
       <Form createToDo={createToDo} />
-      <ToDoList todos={todos} updateToDo={updateToDo} deleteToDo={deleteToDo} />
+      <ToDoList
+        todos={todoList}
+        updateToDo={updateToDo}
+        deleteToDo={deleteToDo}
+      />
     </>
   );
 };

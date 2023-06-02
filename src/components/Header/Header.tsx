@@ -7,8 +7,8 @@ const NAV_LINKS = [
     name: 'Home',
   },
   {
-    path: '/todo',
-    name: 'Todo',
+    path: '/list',
+    name: 'List',
   },
 ];
 
