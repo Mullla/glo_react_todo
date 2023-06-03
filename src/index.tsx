@@ -7,9 +7,7 @@ import { HelmetProvider, Helmet } from 'react-helmet-async';
 
 import { store } from './store';
 import { router } from './router';
-
-import './assets/scss/normalize.scss';
-import './assets/scss/style.scss';
+import { GlobalStyle } from './styles/GlobalStyle';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -34,7 +32,10 @@ root.render(
           />
           <title>React ToDo List</title>
         </Helmet>
+        <GlobalStyle />
+
         <RouterProvider router={router} />
+
         <ToastContainer />
       </HelmetProvider>
     </Provider>

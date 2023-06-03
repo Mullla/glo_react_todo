@@ -1,6 +1,10 @@
 import { ToDoListItem } from './ToDoListItem/ToDoListItem';
-import classes from './ToDoList.module.scss';
 import { ToDo } from '../../models/ToDo';
+import {
+  ToDoListCompleted,
+  ToDoListFailed,
+  ToDoListWrapper,
+} from './ToDoList.styled';
 
 interface ComponentProps {
   todos: ToDo[];
@@ -25,14 +29,10 @@ export const ToDoList = (props: ComponentProps) => {
   };
 
   return (
-    <div className={classes.container}>
-      <ul className={`${classes.list} ${classes.failed}`}>
-        {getListWithStatus(false)}
-      </ul>
+    <ToDoListWrapper>
+      <ToDoListFailed>{getListWithStatus(false)}</ToDoListFailed>
 
-      <ul className={`${classes.list} ${classes.completed}`}>
-        {getListWithStatus(true)}
-      </ul>
-    </div>
+      <ToDoListCompleted>{getListWithStatus(true)}</ToDoListCompleted>
+    </ToDoListWrapper>
   );
 };

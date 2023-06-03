@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom';
 import { ToDo } from '../../models/ToDo';
-import classes from './ListItem.module.scss';
+import { ListItemLink, ListItemWrapper } from './ListItem.styled';
 
 interface ComponentProps {
   todo: ToDo;
@@ -8,17 +7,14 @@ interface ComponentProps {
 }
 
 export const ListItem = ({ todo, tag }: ComponentProps) => {
-  const Tag = (tag ? tag : 'div') as keyof JSX.IntrinsicElements;
+  const tagToRender = (tag ? tag : 'div') as keyof JSX.IntrinsicElements;
 
   return (
-    <Tag>
-      <Link
-        to={`/list/${todo.id}`}
-        className={`${classes.link} ${
-          todo.isDone ? classes.done : classes.notDone
-        }`}>
+    <ListItemWrapper as={tagToRender}>
+      {/* $ is for transient props: https://stackoverflow.com/questions/58094415/styling-react-router-dom-link-using-styled-components-getting-warning-when-passi */}
+      <ListItemLink to={`/list/${todo.id}`} $isDone={todo.isDone}>
         {todo.text}
-      </Link>
-    </Tag>
+      </ListItemLink>
+    </ListItemWrapper>
   );
 };

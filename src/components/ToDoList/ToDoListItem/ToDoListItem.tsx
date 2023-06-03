@@ -1,5 +1,11 @@
 import { ToDo } from '../../../models/ToDo';
-import classes from './ToDoListItem.module.scss';
+import {
+  ToDoListItemButtonChecked,
+  ToDoListItemButtonTrash,
+  ToDoListItemButtonUnchecked,
+  ToDoListItemButtons,
+  ToDoListItemWrapper,
+} from './ToDoListItem.styled';
 
 interface ComponentProps {
   todo: ToDo;
@@ -8,19 +14,17 @@ interface ComponentProps {
 }
 
 export const ToDoListItem = (props: ComponentProps) => {
+  const ButtonToShow = props.todo.isDone
+    ? ToDoListItemButtonChecked
+    : ToDoListItemButtonUnchecked;
+
   return (
-    <li className={classes.wrapper}>
+    <ToDoListItemWrapper>
       <span>{props.todo.text}</span>
-      <div className={classes.buttons}>
-        <button
-          className={classes.trash}
-          onClick={() => props.deleteToDo(props.todo)}
-        />
-        <button
-          className={props.todo.isDone ? classes.check : classes.uncheck}
-          onClick={() => props.updateToDo(props.todo)}
-        />
-      </div>
-    </li>
+      <ToDoListItemButtons>
+        <ToDoListItemButtonTrash onClick={() => props.deleteToDo(props.todo)} />
+        <ButtonToShow onClick={() => props.updateToDo(props.todo)} />
+      </ToDoListItemButtons>
+    </ToDoListItemWrapper>
   );
 };
