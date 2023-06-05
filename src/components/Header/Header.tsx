@@ -1,4 +1,11 @@
-import { HeaderNavbar, HeaderWrapper, HeaderLink } from './Header.styled';
+import { useDispatch } from 'react-redux';
+import {
+  HeaderNavbar,
+  HeaderWrapper,
+  HeaderLink,
+  HeaderToggleThemeButton,
+} from './Header.styled';
+import { toggleThemeAction } from '../../feature/theme';
 
 const NAV_LINKS = [
   {
@@ -12,6 +19,8 @@ const NAV_LINKS = [
 ];
 
 export const Header = () => {
+  const dispatch = useDispatch();
+
   return (
     <HeaderWrapper>
       <HeaderNavbar>
@@ -21,6 +30,8 @@ export const Header = () => {
           </HeaderLink>
         ))}
       </HeaderNavbar>
+
+      <HeaderToggleThemeButton onClick={() => dispatch(toggleThemeAction())} />
     </HeaderWrapper>
   );
 };
