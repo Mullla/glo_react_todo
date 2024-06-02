@@ -32,5 +32,5 @@ export const router = createBrowserRouter(
       element: <NotFound />,
     },
   ],
-  { basename: '/glo_react-todo' }
+  { basename: '/glo_react_todo' }
 );
